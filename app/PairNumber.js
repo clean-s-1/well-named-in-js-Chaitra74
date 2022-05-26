@@ -1,11 +1,7 @@
 import {MajorColorNames} from './MajorColorNames.js';
 import {MinorColorNames} from './MinorColorNames.js';
 
-export class PairNumber {
-    constructor(pair) {
-        this.pair = pair;
-    }
-
+export class PairNumber {    
     //This function returns the pair number for the given color pair.
     getPairNumberFromColor(pair) {
         let majorIndex = this.getIndex(pair.majorColor, MajorColorNames);       
