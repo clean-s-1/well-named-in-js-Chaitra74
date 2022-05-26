@@ -29,10 +29,15 @@ export class Color {
     //This function returns all the colorpairs for corresponding pair numbers.
     getAllColorsFromPairNumbers()
     {  
+        let colorPairManual = [];
         for (let pairNum = 1; pairNum <= (MajorColorNames.length * MinorColorNames.length); pairNum++)
-        {         
-            let testPair = this.getColorFromPairNumber(pairNum);
-            console.log(`[In]Pair Number: ${pairNum},[Out] Colors:${testPair.formatColorPair()}`);             
-        }  
-    }
+        {                   
+            let colorPair = this.getColorFromPairNumber(pairNum);
+            colorPairManual.push({
+                pairNumber: pairNum,
+                colorPair: colorPair
+            });           
+        } 
+        return colorPairManual; 
+    }    
 }

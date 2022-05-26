@@ -8,27 +8,29 @@ export class PairNumber {
 
     //This function returns the pair number for the given color pair.
     getPairNumberFromColor(pair) {
-        let majorIndex = -1;
-        for (let i = 0; i < MajorColorNames.length; i++)
-            {
-                if (MajorColorNames[i] == pair.majorColor) {
-                    majorIndex = i;
-                    break;
-                }
-            }
-
-        let minorIndex = -1;
-            for (let i = 0; i < MinorColorNames.length; i++)
-            {
-                if (MinorColorNames[i] == pair.minorColor) {
-                    minorIndex = i;
-                    break;
-                }
-            }
+        let majorIndex = this.getIndex(pair.majorColor, MajorColorNames);       
+        let minorIndex = this.getIndex(pair.minorColor, MinorColorNames);           
     
         if (majorIndex == -1 || minorIndex == -1) {
                 throw `Unknown Colors:${pair.toString()}`;
             }
         return (majorIndex * MinorColorNames.length) + (minorIndex + 1);
 	 }    
+
+     //This function returns the color index.
+     getIndex(color, colorNames)
+     {
+        let index = -1;
+        for (let i = 0; i < colorNames.length; i++)
+        {
+            if (colorNames[i] == color) {
+                index = i;
+                break;
+            }
+        }
+        if(index == -1){
+            throw `Unknown Colors:${color}`;
+        }
+        return index;
+     }
 }

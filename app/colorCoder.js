@@ -26,22 +26,26 @@ function ColorCoderTest(){
 	//test cases for checking the pair number returned for given color pair.   
             let testPair2 = new ColorPair();
 			testPair2.majorColor="YELLOW";
-			testPair2. minorColor ="GREEN";
+			testPair2.minorColor ="GREEN";
             let pairNumProcessor = new PairNumber();
             pairNumber = pairNumProcessor.getPairNumberFromColor(testPair2);
             console.log(`[In]Colors: ${testPair2.formatColorPair()}, [Out] PairNumber: ${pairNumber}`);
 			console.assert(pairNumber==18);
-
-			testPair2 = new ColorPair();
+						
 			testPair2.majorColor="RED";
-			testPair2. minorColor ="BLUE";
+			testPair2.minorColor ="BLUE";
             pairNumber =pairNumProcessor.getPairNumberFromColor(testPair2);
             console.log(`[In]Colors: ${testPair2.formatColorPair()}, [Out] PairNumber: ${pairNumber}`);
 			console.assert(pairNumber==6);
 	
 	//printing wiring color pair manual.		
             console.log("PairNumber Manual");
-			colorProcessor.getAllColorsFromPairNumbers();          
+			let colorManual = colorProcessor.getAllColorsFromPairNumbers();        
+			for (let i = 0; i < colorManual.length; i++) {				
+				console.log(`[In]Pair Number: ${colorManual[i].pairNumber},[Out] Colors:${colorManual[i].colorPair.formatColorPair()}`); 
+			}  		
+			console.assert(colorManual[5].colorPair.majorColor == "RED");		
+			console.assert(colorManual[5].colorPair.minorColor == "BLUE");		
 }
 ColorCoderTest();
 
