@@ -3,10 +3,6 @@ import {MajorColorNames} from './MajorColorNames.js';
 import {MinorColorNames} from './MinorColorNames.js';
 
 export class Color {
-    constructor(pairNumber) {
-        this.pairNumber = pairNumber;
-    }
-
     //This function returns the color pair for the given pair number.
     getColorFromPairNumber(pairNumber)
     {
