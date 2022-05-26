@@ -1,99 +1,51 @@
+import {ColorPair} from './ColorPair.js';
+import {Color} from './Color.js';
+import {PairNumber} from './PairNumber.js';
 
-const MajorColorNames = [
-    "WHITE", "RED", "BLACK", "YELLOW", "VIOLET"
-];
-const MinorColorNames = [
-	"BLUE", "ORANGE", "GREEN", "BROWN", "SLATE"
-];
-
-function ColorPair(){
-           this.majorColor;
-           this.minorColor;
-}
-
-ColorPair.prototype.toString=function(){
-	return `MajorColor:${this.majorColor},MinorColr:${this.minorColor}`;
-}
-
-function getColorFromPairNumber(pairNumber)
-{
-	let minorSize = MajorColorNames.length;
-	let majorSize = MinorColorNames.length;
-	
-	if (pairNumber < 1 || pairNumber > minorSize * majorSize)
- 	{
- 		throw `Argument PairNumber:${pairNumber} is outside the allowed range` 
-	}
-	let zeroBasedPairNumber = pairNumber - 1;
-    let majorIndex = parseInt (zeroBasedPairNumber / minorSize);
-    let minorIndex = parseInt(zeroBasedPairNumber % minorSize);
-	let  pair = new ColorPair();
-	pair.majorColor = MajorColorNames[majorIndex];
-	pair.minorColor = MinorColorNames[minorIndex];
-	return pair;
-}
-
-function getPairNumberFromColor(pair)
-        {
-        let majorIndex = -1;
-        for (let i = 0; i < MajorColorNames.length; i++)
-            {
-                if (MajorColorNames[i] == pair.majorColor)
-                {
-                    majorIndex = i;
-                    break;
-                }
-            }
-
-        let minorIndex = -1;
-            for (let i = 0; i < MinorColorNames.length; i++)
-            {
-                if (MinorColorNames[i] == pair.minorColor)
-                {
-                    minorIndex = i;
-                    break;
-                }
-            }
-    
-        if (majorIndex == -1 || minorIndex == -1)
-            {
-                throw `Unknown Colors:${pair.toString()}`;
-            }
-
-        return (majorIndex * MinorColorNames.length) + (minorIndex + 1);
-	 }
-	 
-	 function test(){
-			pairNumber = 4;
-            let testPair1 = getColorFromPairNumber(pairNumber);
-            console.log(`[In]Pair Number: ${pairNumber},[Out] Colors:${testPair1}`);
+function ColorCoderTest(){  
+	//test cases for checking the color pair returned for given pair number.     
+			let pairNumber = 4;
+            let colorProcessor = new Color();
+            let testPair1 = colorProcessor.getColorFromPairNumber(pairNumber);
+            console.log(`[In]Pair Number: ${pairNumber},[Out] Colors:${testPair1.formatColorPair()}`);
 			console.assert(testPair1.majorColor == "WHITE");
 			console.assert(testPair1.minorColor == "BROWN");
 
 			pairNumber = 5;
-            testPair1 = getColorFromPairNumber(pairNumber);
-            console.log(`[In]Pair Number: ${pairNumber},[Out] Colors:${testPair1}`);
+            testPair1 = colorProcessor.getColorFromPairNumber(pairNumber);
+            console.log(`[In]Pair Number: ${pairNumber},[Out] Colors:${testPair1.formatColorPair()}`);
 			console.assert(testPair1.majorColor == "WHITE");
-			console.assert(testPair1.minorColor == "SLATEGRAY");
+			console.assert(testPair1.minorColor == "SLATE");
 			 
 			pairNumber = 23;
-            testPair1 = getColorFromPairNumber(pairNumber);
-            console.log(`[In]Pair Number: ${pairNumber},[Out] Colors:${testPair1}`);
-			console.assert(testPair1.majorColor == "RED");
+            testPair1 = colorProcessor.getColorFromPairNumber(pairNumber);
+            console.log(`[In]Pair Number: ${pairNumber},[Out] Colors:${testPair1.formatColorPair()}`);
+			console.assert(testPair1.majorColor == "VIOLET");
 			console.assert(testPair1.minorColor == "GREEN");
-			 
+	
+	//test cases for checking the pair number returned for given color pair.   
             let testPair2 = new ColorPair();
 			testPair2.majorColor="YELLOW";
-			testPair2. minorColor ="GREEN";
-            pairNumber =getPairNumberFromColor(testPair2);
-            console.log(`[In]Colors: ${testPair2}, [Out] PairNumber: ${pairNumber}`);
+			testPair2.minorColor ="GREEN";
+            let pairNumProcessor = new PairNumber();
+            pairNumber = pairNumProcessor.getPairNumberFromColor(testPair2);
+            console.log(`[In]Colors: ${testPair2.formatColorPair()}, [Out] PairNumber: ${pairNumber}`);
 			console.assert(pairNumber==18);
-
-			testPair2 = new ColorPair();
+						
 			testPair2.majorColor="RED";
-			testPair2. minorColor ="BLUE";
-            pairNumber =getPairNumberFromColor(testPair2);
-            console.log(`[In]Colors: ${testPair2}, [Out] PairNumber: ${pairNumber}`);
+			testPair2.minorColor ="BLUE";
+            pairNumber =pairNumProcessor.getPairNumberFromColor(testPair2);
+            console.log(`[In]Colors: ${testPair2.formatColorPair()}, [Out] PairNumber: ${pairNumber}`);
 			console.assert(pairNumber==6);
+	
+	//printing wiring color pair manual.		
+            console.log("PairNumber Manual");
+			let colorManual = colorProcessor.getAllColorsFromPairNumbers();        
+			for (let i = 0; i < colorManual.length; i++) {				
+				console.log(`[In]Pair Number: ${colorManual[i].pairNumber},[Out] Colors:${colorManual[i].colorPair.formatColorPair()}`); 
+			}  		
+			console.assert(colorManual[5].colorPair.majorColor == "RED");		
+			console.assert(colorManual[5].colorPair.minorColor == "BLUE");		
 }
-test();
+ColorCoderTest();
+
