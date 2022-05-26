@@ -5,6 +5,6 @@ export class ColorPair {
     }
 
     formatColorPair() {
-        return `MajorColor:${this.majorColor},MinorColor:${this.minorColor}`;
+        return `Major Color:${this.majorColor},Minor Color:${this.minorColor}`;
     }
   }
